@@ -29,14 +29,18 @@ services:
       - ./certbot/conf/:/etc/letsencrypt/:rw
 
   php-fpm:
-    image: php:8.1-fpm
     container_name: php-fpm
+    platform: linux/amd64
+    build:
+      context: ./
+      dockerfile: dockerFilePHP
+    ports:
+      - "9000:9000"
+    volumes:
+       - /var/www/html:/var/www/html:rw
+      - phpsocket:/var/run
     networks:
       - internal
-    volumes:
-      - /var/www/html:/var/www/html:rw
-      - phpsocket:/var/run
-
 volumes:
   phpsocket:
 

@@ -1,0 +1,13 @@
+FROM php:latest-apache  
+
+RUN mkdir /app  
+
+WORKDIR /app  
+
+RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
+
+RUN sed -i -e "s/var\/www/app/g" /etc/apache2/apache2.conf && sed -i -e "s/html/public/g" /etc/apache2/apache2.conf
+
+COPY . /app  
+
+RUN chown -R www-data:www-data
