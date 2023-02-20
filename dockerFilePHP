@@ -1,23 +1,11 @@
 FROM php:8.1-fpm 
 
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
-RUN apt-get update && apt-get install -y libmcrypt-dev \
-    mysql-client libmagickwand-dev --no-install-recommends \
-    && pecl install imagick \
-    && docker-php-ext-enable imagick \
-&& docker-php-ext-install mcrypt pdo_mysql
+RUN chmod +x /usr/local/bin/install-php-extensions && \
+    install-php-extensions xdebug mcrypt imagick pdo_mysql pdo_mysql redis memcached
 
-# Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# https://gist.github.com/giansalex/2776a4206666d940d014792ab4700d80
+# PHP for Nextcloud https://docs.nextcloud.com/server/25/admin_manual/installation/source_installation.html
 
-RUN mkdir /app  
-
-WORKDIR /app  
-
-RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
-
-RUN sed -i -e "s/var\/www/app/g" /etc/apache2/apache2.conf && sed -i -e "s/html/public/g" /etc/apache2/apache2.conf
-
-COPY . /app  
-
-RUN chown -R www-data:www-data
+RUN install-php-extensions ctype curl dom fileinfo gd json libxml mbstring posix simplexml xmlreader xmlwriter zip zlib session
