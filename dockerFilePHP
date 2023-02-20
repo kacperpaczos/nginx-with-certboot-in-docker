@@ -2,10 +2,30 @@ FROM php:8.1-fpm
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
-RUN chmod +x /usr/local/bin/install-php-extensions && \
-    install-php-extensions xdebug mcrypt imagick pdo_mysql pdo_mysql redis memcached
+RUN chmod +x /usr/local/bin/install-php-extensions 
+RUN install-php-extensions xdebug  
+RUN install-php-extensions mcrypt
+RUN install-php-extensions imagick
+RUN install-php-extensions pdo_mysql
+RUN install-php-extensions redis
+RUN install-php-extensions memcached
 
 # https://gist.github.com/giansalex/2776a4206666d940d014792ab4700d80
 # PHP for Nextcloud https://docs.nextcloud.com/server/25/admin_manual/installation/source_installation.html
 
-RUN install-php-extensions ctype curl dom fileinfo gd json libxml mbstring posix simplexml xmlreader xmlwriter zip zlib session
+RUN install-php-extensions ctype
+RUN install-php-extensions curl
+RUN install-php-extensions dom
+RUN install-php-extensions fileinfo
+RUN install-php-extensions gd
+RUN install-php-extensions json
+RUN install-php-extensions libxml
+RUN install-php-extensions mbstring
+RUN install-php-extensions posix
+RUN install-php-extensions simplexml
+RUN install-php-extensions xmlreader
+RUN install-php-extensions xmlwriter
+RUN install-php-extensions zip
+RUN install-php-extensions zlib
+RUN install-php-extensions session
+
