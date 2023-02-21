@@ -10,8 +10,8 @@ services:
       - 443:443
     restart: always
     volumes:
-      - ./user_conf.d/:/etc/nginx/conf.d/:ro
-      - ./nginx/:/etc/nginx
+      - ./nginx/:/etc/nginx:rw
+      - ./fastcgicheck:/var/www/html/fastcgi/:ro
       - ./certbot/www:/var/www/certbot/:ro
       - ./certbot/conf/:/etc/nginx/ssl/:ro
       - /var/www/html:/var/www/html:rw
@@ -21,8 +21,6 @@ services:
       - default
 #    depends_on: 
 #      - php-fpm
-    #volumes-from:
-    #  - nextcloud
 
   certbot:
     image: certbot/certbot:latest
