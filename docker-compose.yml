@@ -11,11 +11,11 @@ services:
     restart: always
     volumes:
       - ./nginx/:/etc/nginx:rw
-      - ./fastcgicheck:/var/www/html/fastcgi/:ro
       - ./certbot/www:/var/www/certbot/:ro
       - ./certbot/conf/:/etc/nginx/ssl/:ro
       - /var/www/html:/var/www/html:rw
-      - phpsocket:/var/run
+#      - ncapp:/var/www/html:rw
+ #     - phpsocket:/var/run
     networks:
       - internal
       - default
@@ -29,21 +29,22 @@ services:
       - ./certbot/www/:/var/www/certbot/:rw
       - ./certbot/conf/:/etc/letsencrypt/:rw
 
-  #php-fpm:
-  #  container_name: php-fpm
-  #  platform: linux/amd64
-  #  build:
-  #    context: ./
-  #    dockerfile: dockerFilePHP
-  #  ports:
-  #    - "9000:9000"
-  #  volumes:
-  #    - /var/www/html:/var/www/html:rw
-  #    - phpsocket:/var/run
-  #  networks:
-  #    - internal
+#  php-fpm:
+#    container_name: php-fpm
+#    platform: linux/amd64
+#    build:
+#      context: ./
+#      dockerfile: dockerFilePHP
+#    ports:
+#      - 9000
+#    volumes:
+#      - /var/www/html:/var/www/html:rw
+#      - phpsocket:/var/run
+#    networks:
+#      - internal
 volumes:
-  phpsocket:
+    ncapp:
+#    phpsocket:
 
 networks:
   internal:
