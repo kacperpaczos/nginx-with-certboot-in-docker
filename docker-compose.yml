@@ -16,11 +16,16 @@ services:
       - /var/www/html:/var/www/html:rw
 #      - ncapp:/var/www/html:rw
  #     - phpsocket:/var/run
-    networks:
-      - internal
-      - default
 #    depends_on: 
 #      - php-fpm
+    environment:
+      - TZ=Europe/Warsaw
+    networks:
+      #internal
+      default:
+        ipv4_address: 172.19.0.240
+        aliases:
+          - webserver
 
   certbot:
     image: certbot/certbot:latest
